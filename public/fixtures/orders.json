@@ -1,0 +1,43 @@
+{
+  "harry": [
+    {
+      "id": "1",
+      "date": "2019-04-05",
+      "totalAmount": "123"
+    },
+    {
+      "id": "2",
+      "date": "2019-05-06",
+      "totalAmount": "234"
+    },
+    {
+      "id": "3",
+      "date": "2019-06-07",
+      "totalAmount": "345"
+    }
+  ],
+  "ron": [
+  ],
+  "hermione": [
+    {
+      "id": "4",
+      "date": "2019-07-08",
+      "totalAmount": "456"
+    },
+    {
+      "id": "5",
+      "date": "2019-08-09",
+      "totalAmount": "567"
+    },
+    {
+      "id": "6",
+      "date": "2019-09-10",
+      "totalAmount": "678"
+    },
+    {
+      "id": "7",
+      "date": "2019-10-11",
+      "totalAmount": "789"
+    }
+  ]
+}

@@ -37,27 +37,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
               :
               orders.length > 0
                 ?
-                (
-                  <table cellPadding="0" cellSpacing="0">
-                    <thead>
-                    <tr>
-                      <th className="align-left">Order date</th>
-                      <th className="align-right">Total amount</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {
-                      orders.map((order) => {
-                        return <tr key={order.id} data-order-row>
-                          <td>{order.date}</td>
-                          <td className="align-right">${order.totalAmount}</td>
-                        </tr>
-                      })
-                    }
-                    </tbody>
-                  </table>
-                )
+                this.receivedOrders(orders)
                 :
                 loadingState === 'loaded'
                   ?
@@ -98,6 +78,30 @@ export default class OrdersSearchAndOrdersList extends React.Component {
           loadingState: 'loaded'
         });
       });
+  }
+
+  receivedOrders(orders) {
+    return (
+      <table cellPadding="0" cellSpacing="0">
+        <thead>
+        <tr>
+          <th className="align-left">Order date</th>
+          <th className="align-right">Total amount</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {
+          orders.map((order) => {
+            return <tr key={order.id} data-order-row>
+              <td>{order.date}</td>
+              <td className="align-right">${order.totalAmount}</td>
+            </tr>
+          })
+        }
+        </tbody>
+      </table>
+    )
   }
 
 }

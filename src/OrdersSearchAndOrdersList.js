@@ -33,7 +33,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
             :
             error !== ''
               ?
-              <h3>Error: No customer with name '{query}'</h3>
+              <h3 data-no-customer-message>Error: No customer with name '{query}'</h3>
               :
               orders.length > 0
                 ?
@@ -49,7 +49,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
                     <tbody>
                     {
                       orders.map((order) => {
-                        return <tr key={order.id}>
+                        return <tr key={order.id} data-order-row>
                           <td>{order.date}</td>
                           <td className="align-right">${order.totalAmount}</td>
                         </tr>
@@ -61,7 +61,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
                 :
                 loadingState === 'loaded'
                   ?
-                  <h3>No orders found for customer with name '{query}'</h3>
+                  <h3 data-no-orders-message>No orders found for customer with name '{query}'</h3>
                   :
                   <div/>
         }

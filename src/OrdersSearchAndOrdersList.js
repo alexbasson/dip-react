@@ -15,7 +15,6 @@ export default class OrdersSearchAndOrdersList extends React.Component {
 
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleResponse = this.handleResponse.bind(this);
 
     this.receivedOrders = this.receivedOrders.bind(this);
     this.noOrdersFound = this.noOrdersFound.bind(this);
@@ -62,20 +61,6 @@ export default class OrdersSearchAndOrdersList extends React.Component {
       .catch((error) => {
         this.noCustomerFound(query);
       });
-  }
-
-  handleResponse() {
-    const {orders, error, query, loadingState} = this.state;
-
-    if (loadingState === 'loading') {
-      this.loading();
-    } else if (error !== '') {
-      this.noCustomerFound(query);
-    } else if (orders.length > 0) {
-      this.receivedOrders(orders);
-    } else if (loadingState === 'loaded') {
-      this.noOrdersFound(query);
-    }
   }
 
   receivedOrders(orders) {

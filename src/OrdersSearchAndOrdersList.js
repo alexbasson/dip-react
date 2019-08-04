@@ -7,9 +7,6 @@ export default class OrdersSearchAndOrdersList extends React.Component {
 
     this.state = {
       query: '',
-      orders: [],
-      error: '',
-      loadingState: 'unloaded',
       body: <div></div>
     };
 
@@ -37,12 +34,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
   }
 
   handleQueryChange(event) {
-    const query = event.target.value;
-    this.setState({
-      query,
-      error: '',
-      loadingState: 'unloaded'
-    });
+    this.setState({query: event.target.value});
   }
 
   handleSubmit(event) {

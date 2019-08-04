@@ -29,7 +29,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
         {
           loadingState === 'loading'
             ?
-            <div>Loading...</div>
+            this.loading()
             :
             error !== ''
               ?
@@ -110,5 +110,9 @@ export default class OrdersSearchAndOrdersList extends React.Component {
 
   noOrdersFound(query) {
     return <h3 data-no-orders-message>No orders found for customer with name '{query}'</h3>;
+  }
+
+  loading() {
+    return <div>Loading...</div>;
   }
 }

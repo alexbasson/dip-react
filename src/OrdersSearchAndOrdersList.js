@@ -33,7 +33,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
             :
             error !== ''
               ?
-              <h3 data-no-customer-message>Error: No customer with name '{query}'</h3>
+              this.noCustomerFound(query)
               :
               orders.length > 0
                 ?
@@ -41,7 +41,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
                 :
                 loadingState === 'loaded'
                   ?
-                  <h3 data-no-orders-message>No orders found for customer with name '{query}'</h3>
+                  this.noOrdersFound(query)
                   :
                   <div/>
         }
@@ -101,7 +101,14 @@ export default class OrdersSearchAndOrdersList extends React.Component {
         }
         </tbody>
       </table>
-    )
+    );
   }
 
+  noCustomerFound(query) {
+    return <h3 data-no-customer-message>Error: No customer with name '{query}'</h3>;
+  }
+
+  noOrdersFound(query) {
+    return <h3 data-no-orders-message>No orders found for customer with name '{query}'</h3>;
+  }
 }

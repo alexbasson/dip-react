@@ -9,15 +9,21 @@ export default class OrdersSearchAndOrdersList extends React.Component {
       query: '',
       orders: [],
       error: '',
-      loadingState: 'unloaded'
+      loadingState: 'unloaded',
+      body: <div></div>
     };
 
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
+
+    this.receivedOrders = this.receivedOrders.bind(this);
+    this.noOrdersFound = this.noOrdersFound.bind(this);
+    this.noCustomerFound = this.noCustomerFound.bind(this);
+    this.loading = this.loading.bind(this);
   }
 
   render() {
-    const {orders, error, query, loadingState} = this.state;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -26,26 +32,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
           <button type="submit">Get Orders</button>
         </form>
 
-        {
-          loadingState === 'loading'
-            ?
-            this.loading()
-            :
-            error !== ''
-              ?
-              this.noCustomerFound(query)
-              :
-              orders.length > 0
-                ?
-                this.receivedOrders(orders)
-                :
-                loadingState === 'loaded'
-                  ?
-                  this.noOrdersFound(query)
-                  :
-                  <div/>
-        }
-
+        {this.state.body}
       </div>
     )
   }
@@ -71,48 +58,68 @@ export default class OrdersSearchAndOrdersList extends React.Component {
           orders,
           loadingState: 'loaded'
         });
+
+        this.handleResponse();
       })
       .catch((error) => {
         this.setState({
           error,
           loadingState: 'loaded'
         });
+
+        this.handleResponse();
       });
   }
 
-  receivedOrders(orders) {
-    return (
-      <table cellPadding="0" cellSpacing="0">
-        <thead>
-        <tr>
-          <th className="align-left">Order date</th>
-          <th className="align-right">Total amount</th>
-        </tr>
-        </thead>
+  handleResponse() {
+    const {orders, error, query, loadingState} = this.state;
 
-        <tbody>
-        {
-          orders.map((order) => {
-            return <tr key={order.id} data-order-row>
-              <td>{order.date}</td>
-              <td className="align-right">${order.totalAmount}</td>
-            </tr>
-          })
-        }
-        </tbody>
-      </table>
-    );
+    if (loadingState === 'loading') {
+      this.loading();
+    } else if (error !== '') {
+      this.noCustomerFound(query);
+    } else if (orders.length > 0) {
+      this.receivedOrders(orders);
+    } else if (loadingState === 'loaded') {
+      this.noOrdersFound(query);
+    }
+  }
+
+  receivedOrders(orders) {
+    this.setState({
+      body: (
+        <table cellPadding="0" cellSpacing="0">
+          <thead>
+          <tr>
+            <th className="align-left">Order date</th>
+            <th className="align-right">Total amount</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          {
+            orders.map((order) => {
+              return <tr key={order.id} data-order-row>
+                <td>{order.date}</td>
+                <td className="align-right">${order.totalAmount}</td>
+              </tr>
+            })
+          }
+          </tbody>
+        </table>
+      )
+    });
   }
 
   noCustomerFound(query) {
-    return <h3 data-no-customer-message>Error: No customer with name '{query}'</h3>;
+    this.setState({body: <h3 data-no-customer-message>Error: No customer with name '{query}'</h3>});
   }
 
   noOrdersFound(query) {
-    return <h3 data-no-orders-message>No orders found for customer with name '{query}'</h3>;
+    this.setState({body: <h3 data-no-orders-message>No orders found for customer with name '{query}'</h3>});
   }
 
   loading() {
-    return <div>Loading...</div>;
+    this.setState({body: <div>Loading...</div>});
   }
 }

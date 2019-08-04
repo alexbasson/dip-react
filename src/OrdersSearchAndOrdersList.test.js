@@ -83,7 +83,7 @@ describe('OrdersSearchAndOrdersList', () => {
 
       describe('with an error', () => {
         beforeEach(() => {
-          orderServiceSpy.rejectGetOrdersForCustomer();
+          orderServiceSpy.rejectGetOrdersForCustomer('some error message');
         });
 
         it('displays an error message', () => {

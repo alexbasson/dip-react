@@ -1,26 +1,5 @@
 import React from 'react';
 
-class GetOrdersForCustomer {
-  constructor(orderService) {
-    this.orderService = orderService;
-  }
-
-  execute(query, outcomeHandler) {
-    outcomeHandler.loading();
-    this.orderService.getOrdersForCustomer(query)
-      .then((orders) => {
-        if (orders.length > 0) {
-          outcomeHandler.receivedOrders(orders);
-        } else {
-          outcomeHandler.noOrdersFound(query);
-        }
-      })
-      .catch((error) => {
-        outcomeHandler.noCustomerFound(query);
-      });
-  }
-}
-
 export default class OrdersSearchAndOrdersList extends React.Component {
 
   constructor(props) {
@@ -30,8 +9,6 @@ export default class OrdersSearchAndOrdersList extends React.Component {
       query: '',
       body: <div></div>
     };
-
-    this.getOrdersForCustomer = new GetOrdersForCustomer(this.props.orderService);
 
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,8 +39,7 @@ export default class OrdersSearchAndOrdersList extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const {query} = this.state;
-    this.getOrdersForCustomer.execute(query, this);
+    this.props.getOrdersForCustomer.execute(this.state.query, this);
   }
 
   receivedOrders(orders) {

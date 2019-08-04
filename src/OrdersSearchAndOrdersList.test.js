@@ -2,6 +2,7 @@ import React from 'react';
 import OrdersSearchAndOrdersList from './OrdersSearchAndOrdersList';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import GetOrdersForCustomer from './GetOrdersForCustomer';
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -25,7 +26,8 @@ describe('OrdersSearchAndOrdersList', () => {
 
   beforeEach(() => {
     orderServiceSpy = new OrderServiceSpy();
-    wrapper = shallow(<OrdersSearchAndOrdersList orderService={orderServiceSpy}/>);
+    const getOrdersForCustomer = new GetOrdersForCustomer(orderServiceSpy)
+    wrapper = shallow(<OrdersSearchAndOrdersList getOrdersForCustomer={getOrdersForCustomer}/>);
   });
 
   describe('when the user submits a name to the form', () => {

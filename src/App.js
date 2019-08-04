@@ -4,15 +4,17 @@ import CustomerService from "./CustomerService";
 import CustomerList from "./CustomerList";
 import OrderService from "./OrderService";
 import OrdersSearchAndOrdersList from "./OrdersSearchAndOrdersList";
+import GetOrdersForCustomer from './GetOrdersForCustomer';
 
 function App() {
   const customerService = new CustomerService();
   const orderService = new OrderService();
+  const getOrdersForCustomer = new GetOrdersForCustomer(orderService);
 
   return (
       <div>
         <CustomerList customerService={customerService} />
-        <OrdersSearchAndOrdersList orderService={orderService} />
+        <OrdersSearchAndOrdersList getOrdersForCustomer={getOrdersForCustomer} />
       </div>
   );
 }

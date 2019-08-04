@@ -48,26 +48,19 @@ export default class OrdersSearchAndOrdersList extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({
-      loadingState: 'loading'
-    });
     const {query} = this.state;
+
+    this.loading();
     this.props.orderService.getOrdersForCustomer(query)
       .then((orders) => {
-        this.setState({
-          orders,
-          loadingState: 'loaded'
-        });
-
-        this.handleResponse();
+        if (orders.length > 0) {
+          this.receivedOrders(orders);
+        } else {
+          this.noOrdersFound(query);
+        }
       })
       .catch((error) => {
-        this.setState({
-          error,
-          loadingState: 'loaded'
-        });
-
-        this.handleResponse();
+        this.noCustomerFound(query);
       });
   }
 

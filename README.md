@@ -52,7 +52,7 @@ Open up the code in your favorite editor or IDE. Poke around as you like, but in
 
 ### Try refactoring it
 
-There's a lot going on here, and it's ripe for refactoring. As a challenge, see if you can refactor it in stages, ending up by using the Dependency Inversion Principle to remove all (that's right, *all*) of the conditional code. Make sure that *before* you start refactoring, you begin by writing some good tests for the component, and that as you refactor, you run the tests to make sure they're green!
+There's a lot going on here, and it's ripe for refactoring. As a challenge, see if you can refactor it in stages, ending up by using the Dependency Inversion Principle to remove all (that's right, *all*) of the conditional code from the component. Make sure that *before* you start refactoring, you begin by writing some good tests for the component, and that as you refactor, you run the tests to make sure they're green!
 
 ### View an example refactoring
 
